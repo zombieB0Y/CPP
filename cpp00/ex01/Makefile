@@ -2,9 +2,9 @@ CC = c++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-CFILE = megaphone.cpp
+CFILE = Contact.cpp PhoneBook.cpp main.cpp
 
-NAME = megaphone
+NAME = Awesome_PhoneBook
 
 all:
 	$(CC) $(CFLAGS) $(CFILE) -o $(NAME)
