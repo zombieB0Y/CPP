@@ -10,6 +10,6 @@ private:
 public:
 	void ADD(void);
 	void SEARCH(void);
-	void EXIT(void);
+	// void EXIT(void);
 	PhoneBook();
 };

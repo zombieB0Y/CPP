@@ -19,9 +19,15 @@ int main()
         if (line == "EXIT")
             break;
         else if (line == "ADD")
+        {
             std::cout << "ADD command received\n";
+            phonebook.ADD();
+        }
         else if (line == "SEARCH")
+        {
             std::cout << "SEARCH command received\n";
+            phonebook.SEARCH();
+        }
         else if (line.empty())
             continue;
         else
