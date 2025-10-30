@@ -10,6 +10,7 @@ private:
 public:
 	void ADD(void);
 	void SEARCH(void);
+	std::string truncate(std::string str);
 	// void EXIT(void);
 	PhoneBook();
 };
