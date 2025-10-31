@@ -1,6 +1,7 @@
 #include "PhoneBook.hpp"
 #include <iostream>
-#include <iomanip> // For std::setw
+#include <iomanip>
+#include <string>
 
 PhoneBook::PhoneBook()
 {
@@ -93,7 +94,7 @@ void PhoneBook::ADD(void)
 
 void PhoneBook::SEARCH(void)
 {
-	// int index;
+	int index;
     if (size == 0)
     {
         std::cout << "No contacts available." << std::endl;
@@ -110,30 +111,31 @@ void PhoneBook::SEARCH(void)
                   << std::setw(10) << truncate(contacts[i].get_last_name()) << "|"
                   << std::setw(10) << truncate(contacts[i].get_nickname()) << std::endl;
     }
-    // std::cout << "Enter the index of the contact to display: ";
-    // std::string input;
-    // if (!std::getline(std::cin, input))
-    // {
-    //     std::cout << std::endl;
-    //     return;
-    // }
-    // try {
-    //     index = std::stoi(input);
-    // } catch (...) {
-    //     std::cout << "Invalid index." << std::endl;
-    //     return;
-    // }
-    // if (index < 0 || index >= size)
-    // {
-    //     std::cout << "Index out of range." << std::endl;
-    //     return;
-    // }
-    // std::cout << std::endl;
-    // std::cout << "First Name: " << contacts[index].get_first_name() << std::endl;
-    // std::cout << "Last Name: " << contacts[index].get_last_name() << std::endl;
-    // std::cout << "Nickname: " << contacts[index].get_nickname() << std::endl;
-    // std::cout << "Phone Number: " << contacts[index].get_phone_number() << std::endl;
-    // std::cout << "Darkest Secret: " << contacts[index].get_darkest_secret() << std::endl;
+    std::cout << "Enter the index of the contact to display: ";
+    std::string input;
+    if (!std::getline(std::cin, input))
+    {
+        std::cout << std::endl;
+        return;
+    }
+    try {
+        index = std::stoi(input); // c++11 not c++98 tfo
+    } catch (...)
+	{
+        std::cout << "Invalid index." << std::endl;
+        return;
+    }
+    if (index < 0 || index >= size)
+    {
+        std::cout << "Index out of range." << std::endl;
+        return;
+    }
+    std::cout << std::endl;
+    std::cout << "First Name: " << contacts[index].get_first_name() << std::endl;
+    std::cout << "Last Name: " << contacts[index].get_last_name() << std::endl;
+    std::cout << "Nickname: " << contacts[index].get_nickname() << std::endl;
+    std::cout << "Phone Number: " << contacts[index].get_phone_number() << std::endl;
+    std::cout << "Darkest Secret: " << contacts[index].get_darkest_secret() << std::endl;
 }
 
 std::string PhoneBook::truncate(std::string str)
