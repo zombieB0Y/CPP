@@ -1,5 +1,10 @@
 #pragma once
 #include "Contact.hpp"
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>
+#include <cctype>
+#include <string>
 
 class PhoneBook
 {
@@ -11,6 +16,5 @@ public:
 	void ADD(void);
 	void SEARCH(void);
 	std::string truncate(std::string str);
-	// void EXIT(void);
 	PhoneBook();
 };
