@@ -11,6 +11,7 @@ class PhoneBook
 private:
 	Contact contacts[8];
 	int	size;
+	int	offset;
 
 public:
 	void ADD(void);

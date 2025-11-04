@@ -3,6 +3,7 @@
 PhoneBook::PhoneBook()
 {
 	size = 0;
+	offset = 0;
 }
 
 bool is_all_whitespace(const std::string& str) {
@@ -63,7 +64,8 @@ void PhoneBook::ADD(void)
 {
 	if (size == 8)
 	{
-		size = 0;
+		if (offset == 8)
+			offset = 0;
 		std::string line;
 		std::cout << "enter first name :";
 		if (!std::getline(std::cin, line))
@@ -73,7 +75,7 @@ void PhoneBook::ADD(void)
 		}
 		parse_input(line, "enter first name :");
 		line = trim(line);
-		contacts[size].set_first_name(line);
+		contacts[offset].set_first_name(line);
 		std::cout << "enter last name :";
 		if (!std::getline(std::cin, line))
 		{
@@ -82,7 +84,7 @@ void PhoneBook::ADD(void)
 		}
 		parse_input(line, "enter last name :");
 		line = trim(line);
-		contacts[size].set_last_name(line);
+		contacts[offset].set_last_name(line);
 		std::cout << "enter nickname :";
 		if (!std::getline(std::cin, line))
 		{
@@ -91,7 +93,7 @@ void PhoneBook::ADD(void)
 		}
 		parse_input(line, "enter nickname :");
 		line = trim(line);
-		contacts[size].set_nickname(line);
+		contacts[offset].set_nickname(line);
 		std::cout << "enter phone number :";
 		if (!std::getline(std::cin, line))
 		{
@@ -100,7 +102,7 @@ void PhoneBook::ADD(void)
 		}
 		parse_input(line, "enter phone number :");
 		line = trim(line);
-		contacts[size].set_phone_number(line);
+		contacts[offset].set_phone_number(line);
 		std::cout << "enter darkest secret :";
 		if (!std::getline(std::cin, line))
 		{
@@ -109,7 +111,8 @@ void PhoneBook::ADD(void)
 		}
 		parse_input(line, "enter darkest secret :");
 		line = trim(line);
-		contacts[size].set_darkest_secret(line);
+		contacts[offset].set_darkest_secret(line);
+		offset++;
 	}
 	else
 	{
