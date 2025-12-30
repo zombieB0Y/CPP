@@ -1,6 +1,7 @@
 #include "Fixed.hpp"
 
 // constructors -------------------------------
+
 Fixed::Fixed() : FP_value(0) {}
 
 Fixed::Fixed(const Fixed &copy) {
@@ -27,6 +28,81 @@ Fixed &Fixed::operator=(const Fixed &copy) {
 std::ostream &operator<<(std::ostream &op_stream, Fixed const &obj) {
 	op_stream << obj.toFloat();
 	return op_stream;
+}
+
+bool Fixed::operator>(const Fixed &copy) const {
+	return (this->getRawBits() > copy.getRawBits());
+}
+
+bool Fixed::operator<(const Fixed &copy) const{
+	return (this->getRawBits() < copy.getRawBits());
+}
+
+bool Fixed::operator>=(const Fixed &copy) const{
+	return (this->getRawBits() >= copy.getRawBits());
+}
+
+bool Fixed::operator<=(const Fixed &copy) const{
+	return (this->getRawBits() <= copy.getRawBits());
+}
+
+bool Fixed::operator==(const Fixed &copy) const{
+	return (this->getRawBits() == copy.getRawBits());
+}
+
+bool Fixed::operator!=(const Fixed &copy) const{
+	return (this->getRawBits() != copy.getRawBits());
+}
+
+Fixed Fixed::operator+(const Fixed&copy) const {
+	Fixed	_new;
+	_new.FP_value = this->FP_value + copy.getRawBits();
+	return _new;
+}
+
+Fixed Fixed::operator-(const Fixed &copy) const {
+	Fixed	_new;
+	_new.FP_value = this->FP_value - copy.getRawBits();
+	return _new;
+}
+
+Fixed Fixed::operator*(const Fixed &copy) const {
+	Fixed	_new;
+	long long tmp = (long long)(this->FP_value * copy.getRawBits());
+	_new.setRawBits(tmp >> this->frac_bits);
+	return _new;
+}
+
+Fixed Fixed::operator/(const Fixed &copy) const {
+	Fixed _new;
+	long long tmp = (this->FP_value << this->frac_bits);
+	if (copy.getRawBits() != 0)
+		_new.setRawBits(tmp / copy.getRawBits());
+	else
+		std::cerr << "0 detected\n";
+	return _new;
+}
+
+Fixed	&Fixed::operator++(void) {
+	this->FP_value++;
+	return *this;
+}
+
+Fixed	&Fixed::operator--(void) {
+	this->FP_value--;
+	return *this;
+}
+
+Fixed	Fixed::operator++(int) {
+	int tmp = this->getRawBits();
+	this->FP_value++;
+	return tmp;
+}
+
+Fixed	Fixed::operator--(int) {
+	int tmp = this->getRawBits();
+	this->FP_value--;
+	return tmp;
 }
 
 // destructor-------
