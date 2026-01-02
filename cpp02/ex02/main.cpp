@@ -21,6 +21,7 @@
 int main(void)
 {
     // Fixed a(12.5f);
+
     // std::cout << a << std::endl;
     // std::cout << a++ << std::endl;
     Fixed a;
