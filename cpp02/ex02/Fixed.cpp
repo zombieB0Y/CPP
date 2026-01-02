@@ -94,13 +94,15 @@ Fixed	&Fixed::operator--(void) {
 }
 
 Fixed	Fixed::operator++(int) {
-	int tmp = this->getRawBits();
+	Fixed tmp;
+	tmp.FP_value = this->getRawBits();
 	this->FP_value++;
 	return tmp;
 }
 
 Fixed	Fixed::operator--(int) {
-	int tmp = this->getRawBits();
+	Fixed tmp;
+	tmp.FP_value = this->getRawBits();
 	this->FP_value--;
 	return tmp;
 }
@@ -125,4 +127,20 @@ int Fixed::getRawBits(void) const {
 
 void	Fixed::setRawBits(int const raw) {
 	this->FP_value = raw;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b) {
+	return (a.getRawBits() < b.getRawBits()) ? a : b;
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
+	return (a.getRawBits() < b.getRawBits()) ? a : b;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b) {
+	return (a.getRawBits() > b.getRawBits()) ? a : b;
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
+	return (a.getRawBits() > b.getRawBits()) ? a : b;
 }
