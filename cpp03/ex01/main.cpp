@@ -12,13 +12,6 @@ int main()
         serena.guardGate();
     }
     std::cout << "\n----------------------------------------\n" << std::endl;
-    std::cout << "HEAP ALLOCATION" << std::endl;
-    {
-        ClapTrap* poly = new ScavTrap("Poly");
-        poly->attack("Ghost");
-        delete poly;
-    }
-    std::cout << "\n----------------------------------------\n" << std::endl;
     std::cout << "COPY CONSTRUCTOR" << std::endl;
     {
         ScavTrap original("Original");
