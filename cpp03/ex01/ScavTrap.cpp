@@ -17,7 +17,6 @@ ScavTrap::ScavTrap(std::string _name) : ClapTrap(_name)
 	this->ATT = 20;
 	this->max_hp = 100;
 }
-
 ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap(copy)
 {
 	std::cout << "ScavTrap COPY CONSTUCTOR CALLED !" << std::endl;
