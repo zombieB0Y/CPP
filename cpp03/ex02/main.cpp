@@ -1,17 +1,17 @@
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 #include <iostream>
 
 int main()
 {
-    ScavTrap serena("Serena");
+    FragTrap serena("Serena");
     serena.attack("Target Dummy");
     serena.takeDamage(10);
     serena.beRepaired(5);
-    serena.guardGate();
+    serena.highFivesGuys();
     std::cout << "\n----------------------------------------\n" << std::endl;
-    ScavTrap original("Original");
-    ScavTrap copyCat(original);
-    copyCat.guardGate();
+    FragTrap original("Original");
+    FragTrap copyCat(original);
+    copyCat.highFivesGuys();
     // std::cout << "\n----------------------------------------\n" << std::endl;
     // ClapTrap test("zoubair");
 
