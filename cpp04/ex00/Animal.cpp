@@ -35,10 +35,10 @@ void	Animal::makeSound() const {
 	print_msg("Animal sound....");
 }
 
-void	print_msg(std::string msg) {
-	std::cout << msg << std::endl;
-}
-
 std::string	Animal::getType(void) const {
 	return (type);
+}
+
+void	print_msg(std::string msg) {
+	std::cout << msg << std::endl;
 }
