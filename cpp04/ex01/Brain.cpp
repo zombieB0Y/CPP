@@ -12,11 +12,9 @@ Brain::Brain(const Brain &copy) {
 Brain &Brain::operator=(const Brain &copy) {
 	print_msg("Brain operator called !");
 	if (this != &copy) {
-		Brain *_new = new Brain;
 		for (int i = 0; i < 100; i++) {
-			_new->ideas[i] = copy.ideas[i];
+			this->ideas[i] = copy.ideas[i];
 		}
-		return *_new;
 	}
 	return *this;
 }

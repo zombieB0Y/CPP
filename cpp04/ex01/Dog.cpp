@@ -10,12 +10,14 @@ Dog::Dog() : Animal() {
 
 Dog::Dog(const Dog &copy) : Animal(copy) {
 	print_msg("Dog copy constructor called !");
+	this->brain = new Brain(*copy.brain);
 }
 
 Dog &Dog::operator=(const Dog &copy) {
 	if (this != &copy) {
 		Animal::operator=(copy);
-		this->brain = copy.brain;
+		delete this->brain;
+		this->brain = new Brain(*copy.brain);
 	}
 	return *this;
 }

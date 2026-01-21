@@ -10,13 +10,14 @@ Cat::Cat() : Animal() {
 
 Cat::Cat(const Cat &copy) : Animal(copy) {
 	print_msg("Cat copy constructor called !");
+	this->brain = new Brain(*copy.brain);
 }
 
 Cat &Cat::operator=(const Cat &copy) {
 	if (this != &copy) {
-		// Cat *_new = new Cat;
 		Animal::operator=(copy);
-		this->brain = copy.brain;
+		delete this->brain;
+		this->brain = new Brain(*copy.brain);
 	}
 	return *this;
 }
