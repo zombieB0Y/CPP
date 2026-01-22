@@ -4,14 +4,18 @@
 int main()
 {
     FragTrap serena("Serena");
-    serena.attack("Target Dummy");
-    serena.takeDamage(10);
-    serena.beRepaired(5);
-    serena.highFivesGuys();
-    std::cout << "\n----------------------------------------\n" << std::endl;
     FragTrap original("Original");
-    FragTrap copyCat(original);
-    copyCat.highFivesGuys();
+
+
+    serena.attack("Target Dummy");
+    serena = original;
+
+    serena.takeDamage(10);
+    // serena.beRepaired(5);
+    // serena.highFivesGuys();
+    // std::cout << "\n----------------------------------------\n" << std::endl;
+    // FragTrap copyCat(original);
+    // copyCat.highFivesGuys();
     // std::cout << "\n----------------------------------------\n" << std::endl;
     // ClapTrap test("zoubair");
 
