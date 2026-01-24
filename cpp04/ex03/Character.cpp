@@ -9,8 +9,13 @@ Character::Character() {
 	this->gc_head = 0;
 }
 
-Character::Character(const Character &copy) {
-	*this = copy;
+Character::Character(const Character &copy) : name(copy.name)
+{
+    for (int i = 0; i < 4; i++) {
+        this->slots[i] = 0;
+    }
+    this->gc_head = 0;
+    *this = copy;
 }
 
 Character	&Character::operator=(const Character &copy) {
@@ -43,14 +48,16 @@ const std::string	&Character::getName() const {
 }
 
 void	Character::gc_register(AMateria *data) {
-    if (!data)
+    if (!data) {
         return;
-	t_gb *current = this->gc_head;
-	while (current) {
-		if (current->data == data)
-			return ;
-		current = current->next;
 	}
+	
+	// t_gb *current = this->gc_head;
+	// while (current) {
+	// 	if (current->data == data)
+	// 		return ;
+	// 	current = current->next;
+	// }
     t_gb *node = new t_gb;
     node->data = data;
     node->next = this->gc_head;
@@ -70,6 +77,8 @@ void	Character::gc_collect(void) {
 
 void	Character::gc_remove_ptr(AMateria *data)
 {
+	if (!data || !this->gc_head)
+		return ;
 	t_gb *curr = this->gc_head;
 	t_gb *prev = 0;
 

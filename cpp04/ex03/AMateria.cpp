@@ -20,4 +20,6 @@ const std::string	&AMateria::getType() const {
 
 AMateria::AMateria(const std::string &_type) : type(_type) {}
 
-void	AMateria::use(ICharacter &target) {}
+void	AMateria::use(ICharacter &target) {
+	(void)target;
+}
