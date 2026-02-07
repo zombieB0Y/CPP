@@ -13,6 +13,7 @@ public:
 	ShrubberyCreationForm	&operator=(const ShrubberyCreationForm &copy);
 	~ShrubberyCreationForm();
 
-	void	beSigned(Bureaucrat &officer);
-	void	creatForm(std::string target);
+	ShrubberyCreationForm(std::string _name);
+
+	void	exe() const;
 };

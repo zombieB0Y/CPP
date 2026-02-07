@@ -40,15 +40,28 @@ public:
 		~GradeTooLowException() throw();
 		const char *what() const throw();
 	};
+	class FormNotSignedException : public std::exception
+	{
+	private:
+		std::string msg;
+
+	public:
+		FormNotSignedException(std::string name);
+		~FormNotSignedException() throw();
+		const char *what() const throw();
+	};
 
 	std::string		getName() const;
 	bool			getSign() const;
 	unsigned int	getReqGradeToSign() const;
 	unsigned int	getReqGradeToExe() const;
 
-	virtual void	beSigned(Bureaucrat &officer) = 0;
+	void			beSigned(Bureaucrat &officer);
+	virtual	void	exe() const = 0;
 
 	void			setSign(bool _sign);
+
+	void			execute(Bureaucrat const &executor) const;
 };
 
 std::ostream	&operator<<(std::ostream &stream, const AForm &ins);

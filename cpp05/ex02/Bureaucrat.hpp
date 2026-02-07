@@ -47,6 +47,7 @@ public:
 	void dec_grade(void);
 
 	void	signForm(AForm &form);
+	void	executeForm(AForm const &form) const;
 };
 
 std::ostream	&operator<<(std::ostream &stream, const Bureaucrat &ins);
