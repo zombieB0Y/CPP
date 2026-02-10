@@ -1,6 +1,6 @@
-# 42 C++ Modules (00 - 04)
+# 42 C++ Modules (00 - 05)
 
-This repository contains my solutions for the **C++ Piscine Modules 00 through 04** at 42.
+This repository contains my solutions for the **C++ Piscine Modules 00 through 05** at 42.
 The goal of these modules is to transition from **C** to **Object-Oriented Programming (OOP)** using **C++98**.
 
 ## 🛠️ General Rules
@@ -68,6 +68,16 @@ The goal of these modules is to transition from **C** to **Object-Oriented Progr
     * **Virtual Destructors:** **CRITICAL** for preventing memory leaks when deleting derived objects via base pointers.
     * **Deep vs. Shallow Copy:** Manually cloning memory to ensure independent objects.
 
+### [Module 05: Repetition and Exceptions](cpp05/)
+*A simulation of corporate bureaucracy to master robust error handling.*
+
+* **Key Concepts:**
+    * **Exception Handling:** Managing runtime errors gracefully using `try`, `catch`, and `throw` blocks.
+    * **Standard Exceptions:** Creating custom exception classes that inherit from `std::exception`.
+    * **Nested Classes:** Defining exceptions inside the scope of other classes (e.g., `Bureaucrat::GradeTooHighException`).
+    * **Control Flow:** Understanding how exceptions interrupt normal execution and trigger stack unwinding.
+    * **Abstract Classes (Recap):** Using `AForm` as a base for concrete forms (`Shrubbery`, `Robotomy`, `Pardon`).
+    * **Factory Pattern:** Dynamically creating specific form objects using a central "Intern" maker.
 ---
 
 ## 🧠 Key Learnings & Pitfalls
