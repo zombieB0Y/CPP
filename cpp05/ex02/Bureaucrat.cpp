@@ -20,9 +20,9 @@ Bureaucrat::~Bureaucrat() {}
 
 Bureaucrat::Bureaucrat(std::string _name, int _grade) : name(_name) {
 	if (_grade <= 0)
-		throw GradeTooHighException(this->getName());
+		throw GradeTooHighException(_grade);
 	else if (_grade > 150)
-		throw GradeTooLowException(this->getName());
+		throw GradeTooLowException(_grade);
 	else
 		grade = _grade;
 }
@@ -35,12 +35,20 @@ const char *Bureaucrat::GradeTooLowException::what() const throw() {
 	return (this->msg.c_str());
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException(std::string name) {
-	this->msg = name + ", bureaucrat grade is too Hight";
+Bureaucrat::GradeTooHighException::GradeTooHighException(int _grade) {
+	std::stringstream ss;
+    ss << "Error: Grade " << _grade << " is too hight!";
+	this->msg = RED;
+	this->msg += ss.str();
+	this->msg += RESET;
 }
 
-Bureaucrat::GradeTooLowException::GradeTooLowException(std::string name) {
-	this->msg = name + ", bureaucrat grade is too Low";
+Bureaucrat::GradeTooLowException::GradeTooLowException(int _grade) {
+	std::stringstream ss;
+    ss << "Error: Grade " << _grade << " is too low!";
+	this->msg = RED;
+	this->msg += ss.str();
+	this->msg += RESET;
 }
 
 Bureaucrat::GradeTooHighException::~GradeTooHighException() throw() {}
@@ -57,14 +65,14 @@ unsigned int	Bureaucrat::getGrade() const {
 
 void			Bureaucrat::inc_grade() {
 	if (this->grade == 1)
-		throw GradeTooHighException(this->getName());
+		throw GradeTooHighException(grade);
 	else
 		this->grade--;
 }
 
 void			Bureaucrat::dec_grade() {
 	if (grade == 150)
-		throw GradeTooLowException(this->getName());
+		throw GradeTooLowException(grade);
 	else
 		this->grade++;
 }

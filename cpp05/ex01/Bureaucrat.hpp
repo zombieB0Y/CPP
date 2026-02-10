@@ -2,6 +2,10 @@
 
 #include <iostream>
 #include "Form.hpp"
+#include <sstream>
+
+#define RED "\033[31m"
+#define RESET "\033[0m"
 
 class Form;
 
@@ -25,7 +29,7 @@ public:
 		std::string msg;
 
 	public:
-		GradeTooHighException(std::string name);
+		GradeTooHighException(int _grade);
 		~GradeTooHighException() throw();
 		const char *what() const throw();
 	};
@@ -35,7 +39,7 @@ public:
 		std::string msg;
 
 	public:
-		GradeTooLowException(std::string name);
+		GradeTooLowException(int _grade);
 		~GradeTooLowException() throw();
 		const char *what() const throw();
 	};

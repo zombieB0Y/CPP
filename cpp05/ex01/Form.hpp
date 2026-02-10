@@ -26,7 +26,7 @@ public:
 		std::string msg;
 
 	public:
-		GradeTooHighException(std::string name);
+		GradeTooHighException(int _grade);
 		~GradeTooHighException() throw();
 		const char *what() const throw();
 	};
@@ -36,7 +36,7 @@ public:
 		std::string msg;
 
 	public:
-		GradeTooLowException(std::string name);
+		GradeTooLowException(int _grade);
 		~GradeTooLowException() throw();
 		const char *what() const throw();
 	};

@@ -2,13 +2,9 @@
 
 #include <iostream>
 #include <sstream>
-#include <string>
-#include "AForm.hpp"
 
 #define RED "\033[31m"
 #define RESET "\033[0m"
-
-class AForm;
 
 class Bureaucrat
 {
@@ -50,9 +46,6 @@ public:
 
 	void inc_grade(void);
 	void dec_grade(void);
-
-	void	signForm(AForm &form);
-	void	executeForm(AForm const &form) const;
 };
 
 std::ostream	&operator<<(std::ostream &stream, const Bureaucrat &ins);

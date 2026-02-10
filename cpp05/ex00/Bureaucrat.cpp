@@ -1,7 +1,6 @@
 #include "Bureaucrat.hpp"
 
 
-
 Bureaucrat::Bureaucrat() : name("none"), grade(150) {}
 
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : name(copy.getName()) {
@@ -65,30 +64,16 @@ unsigned int	Bureaucrat::getGrade() const {
 
 void			Bureaucrat::inc_grade() {
 	if (this->grade == 1)
-		throw GradeTooHighException(grade);
+		throw GradeTooHighException(this->grade - 1);
 	else
 		this->grade--;
 }
 
 void			Bureaucrat::dec_grade() {
 	if (grade == 150)
-		throw GradeTooLowException(grade);
+		throw GradeTooLowException(grade + 1);
 	else
 		this->grade++;
-}
-
-void			Bureaucrat::signForm(Form &form) {
-	if (form.getSign())
-		return;
-	try
-	{
-		form.beSigned(*this);
-		std::cout << this->getName() << " signed " << form.getName() << std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << this->getName() << " couldn't sign " << form.getName() << " form because " << e.what() << std::endl;
-	}
 }
 
 std::ostream	&operator<<(std::ostream &stream, const Bureaucrat &ins) {

@@ -15,10 +15,18 @@ AForm::~AForm() {}
 //*-----------------------*
 
 AForm::AForm(std::string _name, int grade_to_sign, int grade_to_exe) : name(_name), sign(false), req_grade_to_sign(grade_to_sign), req_grade_to_exe(grade_to_exe) {
-	if (grade_to_sign <= 0 || grade_to_exe <= 0)
-		throw GradeTooHighException(_name);
-	else if (grade_to_sign > 150 || grade_to_exe > 150)
-		throw GradeTooLowException(_name);
+	if (grade_to_sign <= 0 || grade_to_exe <= 0) {
+		if (grade_to_sign <= 0)
+			throw GradeTooHighException(grade_to_sign);
+		else
+			throw GradeTooHighException(grade_to_exe);
+	}
+	else if (grade_to_sign > 150 || grade_to_exe > 150) {
+		if (grade_to_sign > 150)
+			throw GradeTooLowException(grade_to_sign);
+		else
+			throw GradeTooLowException(grade_to_exe);
+	}
 }
 
 std::string		AForm::getName() const {
@@ -41,21 +49,29 @@ void			AForm::beSigned(Bureaucrat &officer) {
 	if (this->sign)
 		return;
 	if (this->getReqGradeToSign() < officer.getGrade())
-		throw GradeTooLowException(this->getName());
+		throw GradeTooLowException(officer.getGrade());
 	else
 		this->sign = true;
 }
 
-AForm::GradeTooHighException::GradeTooHighException(std::string name) {
-	this->msg = name + ", form grade is too Hight to be signed or execute";
+AForm::GradeTooHighException::GradeTooHighException(int _grade) {
+	std::stringstream ss;
+    ss << "Error: Grade " << _grade << " is too hight!";
+	this->msg = RED;
+	this->msg += ss.str();
+	this->msg += RESET;
 }
 
-AForm::GradeTooLowException::GradeTooLowException(std::string name) {
-	this->msg = name + ", form grade is too Low to be signed or execute";
+AForm::GradeTooLowException::GradeTooLowException(int _grade) {
+	std::stringstream ss;
+    ss << "Error: Grade " << _grade << " is too low!";
+	this->msg = RED;
+	this->msg += ss.str();
+	this->msg += RESET;
 }
 
-AForm::FormNotSignedException::FormNotSignedException(std::string name) {
-	this->msg = name + ", form is Not Signed pls sign it before executing it !";
+AForm::FormNotSignedException::FormNotSignedException() {
+	this->msg = "Procedural Error 404: Signature missing. Please submit form 27B-6 first.";
 }
 
 AForm::GradeTooHighException::~GradeTooHighException() throw() {}
@@ -88,9 +104,9 @@ void	AForm::setSign(bool _sign) {
 
 void	AForm::execute(Bureaucrat const &executor) const {
 	if (!this->getSign())
-		throw FormNotSignedException(this->getName());
+		throw FormNotSignedException();
 	else if (this->getReqGradeToExe() < executor.getGrade()) {
-		throw GradeTooLowException(this->getName());
+		throw GradeTooLowException(executor.getGrade());
 	}
 	exe();
 }
