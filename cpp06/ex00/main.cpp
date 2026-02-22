@@ -1,7 +1,4 @@
-#include <iostream>
-#include <cerrno>
-#include <cstdlib>
-#include <iomanip>
+#include "ScalarConverter.hpp"
 
 
 void	print_character(int c) {
