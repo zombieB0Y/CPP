@@ -116,7 +116,14 @@ void HelpConvert::isDouble(const std::string &s) {
 	
 	double d = std::strtod(s.c_str(), &endptr);
 
-	if (errno == ERANGE) throw ConversionError("Double overflow/underflow");
+	if (errno == ERANGE) 
+    {
+		printConversionResult("impossible", "char");
+		printConversionResult("impossible", "int");
+		printConversionResult(static_cast<float>(d), "float");
+	    printConversionResult(d, "double");
+        return;
+    }
 	if (*endptr != '\0') throw ConversionError("Not a valid double");
 
 	if (d >= std::numeric_limits<char>::min() && d <= std::numeric_limits<char>::max())
@@ -128,9 +135,10 @@ void HelpConvert::isDouble(const std::string &s) {
 		printConversionResult(static_cast<int>(d), "int");
 	else
 		printConversionResult("impossible", "int");
-	// std::cout << d << std::endl;
 	printConversionResult(static_cast<float>(d), "float");
 	printConversionResult(d, "double");
+	// std::cout << std::numeric_limits<double>::max() << std::endl;
+    
 }
 
 void HelpConvert::isPseudoLiteral(const std::string &s) {
