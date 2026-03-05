@@ -2,7 +2,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = Serialization
-SRCS = HelpConvert.cpp  ScalarConverter.cpp  main.cpp
+SRCS = Serializer.cpp main.cpp 
 
 OBJS = $(SRCS:.cpp=.o)
 
