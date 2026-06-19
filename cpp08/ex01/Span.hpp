@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <exception>
 #include <vector>
+#include <iterator>
 
 
 class Span {
@@ -20,8 +21,9 @@ public:
 	void	addNumber(int value);
 	template <typename iterator>
 	void	addNumber(iterator begin, iterator end) {
-		if ()
-		this->span.insert(this->span.end(), begin, end)
+		if (this->span.size() + std::distance(begin, end) > this->N)
+			throw std::exception();
+		this->span.insert(this->span.end(), begin, end);
 	}
 	long	longestSpan() const;
 	long	shortestSpan() const;
