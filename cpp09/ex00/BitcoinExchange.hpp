@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cerrno>
+#include <cctype>
 #include <cstdlib>
 #include <limits>
 #include <string>
@@ -27,6 +28,7 @@ public:
 	void		print_obj();
 	std::deque<std::string>	load_input(std::string input_file);
 	int			calcule_PNL(std::string input_file);
+	float			_getDateValue(std::string date);
 };
 
 std::string	_trim(std::string& input);
