@@ -14,23 +14,30 @@
 #include <iterator>
 #include <exception>
 
-class BitcoinExchange {
+class BitcoinExchange
+{
 private:
-	std::deque<std::string>	dates;
-	std::deque<float>		values;
-	bool					ready;
+	std::deque<std::string> dates;
+	std::deque<float> values;
+	bool ready;
+
 public:
 	BitcoinExchange();
-	BitcoinExchange(const BitcoinExchange& other);
-	BitcoinExchange& operator=(const BitcoinExchange& other);
+	BitcoinExchange(const BitcoinExchange &other);
+	BitcoinExchange &operator=(const BitcoinExchange &other);
 	~BitcoinExchange();
 
-	void		print_obj();
-	std::deque<std::string>	load_input(std::string input_file);
-	int			calcule_PNL(std::string input_file);
-	float			_getDateValue(std::string date);
+	void print_obj();
+	std::deque<std::string> load_input(std::string input_file);
+	int calcule_PNL(std::string input_file);
+	float _getDateValue(std::string date);
 };
 
-std::string	_trim(std::string& input);
-bool		_handel_date(std::string date);
-bool		_handel_value(std::string value);
+std::string _trim(const std::string& str);
+bool _handel_date(std::string date);
+bool _handel_value(std::string value);
+bool check_years(std::string year);
+bool check_month(std::string month);
+bool check_days(std::string days);
+float ToInt(std::string value, std::string &error);
+void pop_intil(std::deque<std::string> &dq, int idx);
