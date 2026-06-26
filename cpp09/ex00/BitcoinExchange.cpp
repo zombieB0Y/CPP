@@ -52,30 +52,8 @@ void	BitcoinExchange::print_obj() {
 	}
 }
 
-int	BitcoinExchange::calcule_PNL(std::string input_file) {
-	std::deque<std::string>	dq = this->load_input(input_file);
-	if (dq.empty()) return -1; // if the file is empty or just all errors return -1
-	// for (size_t i = 0; i < dq.size(); ++i) {
-	// 	std::cout << dq.at(i) << std::endl;
-	// }
-	// if (dq.at(0) != "data" || dq.at(1) != "value") {
-	// 	std::cerr << "Erorr: bad header input.\n";
-	// 	dq.pop_front();
-	// 	dq.pop_front();
-	// }
-	// bool	odd = false;
-	// if (dq.size() % 2 == 1) {
-	// 	std::string	last_elem = dq.back();
-	// 	dq.pop_back();
-	// 	odd = true;
-	// }
-	// while (dq.size()) {
-	// 	if (_handel_date(dq.at(0)) && _handel_value(dq.at(1))) {
-	// 		std::string place_holder = "";
-	// 		std::cout << dq.at(0) << " => " << dq.at(1) << " = " << ToInt(dq.at(1), place_holder) * this->_getDateValue(dq.at(0)) << std::endl;
-	// 	}
-	// }
-	return 1;
+void	BitcoinExchange::calcule_PNL(std::string input_file) {
+	this->load_input(input_file);
 }
 
 float	BitcoinExchange::_getDateValue(std::string date) {
@@ -114,7 +92,6 @@ bool	_handel_date(std::string date) {
 
 bool	_handel_value(std::string value) {
 	std::string error = "";
-	// std::cout << value << " || " << std::endl;
 	ToInt(value, error);
 	if (!error.empty()) {
 		std::cerr << "Error: " << error << std::endl;
@@ -164,8 +141,7 @@ bool	check_years(std::string year) {
 	return true;
 }
 
-std::deque<std::string>	BitcoinExchange::load_input(std::string input_file) {
-	(void)input_file;
+void	BitcoinExchange::load_input(std::string input_file) {
 	std::ifstream ip_file(input_file.c_str());
 	if (!ip_file.is_open()) {
 		std::cerr << "Error: could not open file.\n";
@@ -181,12 +157,14 @@ std::deque<std::string>	BitcoinExchange::load_input(std::string input_file) {
 	bool	v = false;
 	while (std::getline(ip_file, line)) {
 		if (line.empty()) continue;
+		line = _trim(line);
+		if (line.empty()) continue;
 		error = false;
 		value = false;
 		std::istringstream	line_s(line);
 		std::string			token;
 		i = 0;
-		while (std::getline(line_s, token, '|')) { // |val
+		while (std::getline(line_s, token, '|')) {
 			if (token.empty()) {
 				std::cerr << "Error: bad input => " << line << std::endl;
 				pop_intil(dq, i);
@@ -199,8 +177,6 @@ std::deque<std::string>	BitcoinExchange::load_input(std::string input_file) {
 				error = true;
 				break;
 			}
-			// if (i == 0)
-			// 	date = true;
 			else if (i == 1)
 				value = true;
 			token = _trim(token);
@@ -227,6 +203,7 @@ std::deque<std::string>	BitcoinExchange::load_input(std::string input_file) {
 				pop_intil(dq, i);
 			}
 			else if (!d) {
+				// std::cout << "test ---" << std::endl;
 				std::cerr << "Error: bad input => " << line << std::endl;
 				pop_intil(dq, i);
 			}
@@ -236,7 +213,6 @@ std::deque<std::string>	BitcoinExchange::load_input(std::string input_file) {
 		}
 	}
 	ip_file.close();
-	return dq;
 }
 
 void	pop_intil(std::deque<std::string>& dq, int idx) {
@@ -247,17 +223,8 @@ void	pop_intil(std::deque<std::string>& dq, int idx) {
 }
 
 std::string _trim(const std::string& str) {
-    // 1. Find the first character that IS NOT a space, tab, carriage return, or newline
-    size_t first = str.find_first_not_of(" \t\r\n");
-    
-    // 2. If the string is completely empty or just pure spaces, return empty
-    if (first == std::string::npos) {
-        return "";
-    }
-    
-    // 3. Find the last character that IS NOT a space/tab/newline
-    size_t last = str.find_last_not_of(" \t\r\n");
-    
-    // 4. Return the clean substring in the middle
-    return str.substr(first, (last - first + 1));
+	size_t first = str.find_first_not_of(" \t\r\n");
+	if (first == std::string::npos) return "";
+	size_t last = str.find_last_not_of(" \t\r\n");
+	return str.substr(first, (last - first + 1));
 }

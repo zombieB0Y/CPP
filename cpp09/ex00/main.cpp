@@ -1,13 +1,13 @@
 #include "BitcoinExchange.hpp"
 
 int main(int ac, char **av) {
-	(void)ac;
+	if (ac != 2) {
+		std::cout << "need input file.\n";
+		return 1;
+	}
 	try {
 		BitcoinExchange	obj;
 		obj.calcule_PNL(av[1]);
 	}
-	catch (std::exception &e) {
-		std::cerr << e.what() << std::endl;
-	}
-	// std::ifstream	file(*av);
+	catch (std::exception &e) {}
 }

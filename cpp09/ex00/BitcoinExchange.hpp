@@ -28,8 +28,8 @@ public:
 	~BitcoinExchange();
 
 	void print_obj();
-	std::deque<std::string> load_input(std::string input_file);
-	int calcule_PNL(std::string input_file);
+	void load_input(std::string input_file);
+	void calcule_PNL(std::string input_file);
 	float _getDateValue(std::string date);
 };
 
