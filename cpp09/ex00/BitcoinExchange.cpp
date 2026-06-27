@@ -156,7 +156,7 @@ void	BitcoinExchange::load_input(std::string input_file) {
 	bool	d = false;
 	bool	v = false;
 	while (std::getline(ip_file, line)) {
-		if (line.empty()) continue;
+		// if (line.empty()) continue;
 		line = _trim(line);
 		if (line.empty()) continue;
 		error = false;
@@ -189,7 +189,7 @@ void	BitcoinExchange::load_input(std::string input_file) {
 				pop_intil(dq, i);
 			}
 			else if (!header && (dq.at(0) != "date" || dq.at(1) != "value")) {
-				std::cerr << "Erorr: bad header input.\n";
+				std::cerr << "Erorr: bad header input => " << line << std::endl;
 				pop_intil(dq, i);
 				header = true;
 			}
