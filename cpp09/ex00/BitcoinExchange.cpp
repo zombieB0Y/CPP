@@ -134,6 +134,7 @@ bool	check_month(std::string month) {
 }
 
 bool	check_years(std::string year) {
+	if (year.length() != 4) return false;
 	while (!year.empty()) {
 		if (!std::isdigit(year.at(0))) return false;
 		year.erase(0, 1);
