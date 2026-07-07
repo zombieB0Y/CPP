@@ -22,9 +22,8 @@ public:
 	PmergeMe(std::string input);
 	void	_LoadVector(std::string input);
 	void	_sortVector(int recuLevel);
-	void	_sortPairs();
-	void	_swap(int a, int b);
-	void	_loadPairs(std::vector<int> *pairs);
+	void	_sortPairs(int recuLevel);
+	void	_swap(std::vector<int>::iterator startA, std::vector<int>::iterator startB, int C);
 };
 
 size_t	_powerOf2(int n);
