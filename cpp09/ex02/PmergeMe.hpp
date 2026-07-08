@@ -26,4 +26,6 @@ public:
 	void	_swap(std::vector<int>::iterator startA, std::vector<int>::iterator startB, int C);
 };
 
-size_t	_powerOf2(int n);
+size_t	_powerOf2(size_t n);
+// size_t	_generateJacob(int n);
+std::vector<size_t> _generateJacob(size_t size);
