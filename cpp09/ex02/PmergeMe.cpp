@@ -34,29 +34,65 @@ void	PmergeMe::_sortVector(int recuLevel) { // recul Level need to start with 0 
 	std::vector<int> _pend;
 	std::vector<int> _main;
 	_main.insert(_main.end(), v.begin(), v.begin() + (2 * C));
-	for (size_t i = 2 * C; i + (2 * C) <= v.size(); i+= 2 * C) {
+	for (size_t i = 2 * C; i + (2 * C) <= v.size(); i += 2 * C) {
 		_main.insert(_main.end(), v.begin() + i + C, v.begin() + i + (2 * C)); // trying to insert all the a chunks 
 		_pend.insert(_pend.end(), v.begin() + i, v.begin() + i + C);
 	}
-	if (v.size() % (2 * C) != 0) {
-		int	leftOver = v.size() / (2 * C); // (size / two_paires) * two_pairs
-		leftOver *= (2 * C);
-		_pend.insert(_pend.end(), v.begin() + leftOver, v.end());
-	}
+	if (_pend.empty()) return ;
+	
 	// ------------- now pen and main is loaded, start inserting ---------
-
-	// int total_b_elements = _pend.size() / C;
-	// int start_K = std::min(curr_jacob, total_b_elements + 1);
-	// for (int K = start_K; K > prev_jacob; --K) {
-	// 	int pend_idx = K - 2;
-	// 	std::vector<int>::iterator b_start = _pend.begin() + (pend_idx * C);
-	// 	std::vector<int>::iterator b_end   = _pend.begin() + ((pend_idx + 1) * C);
-	// 	int b_value = *(b_end - 1);
-	// }
-
-	std::vector<size_t>	jbc = _generateJacob(_pend.size());
-	while (!_pend.empty()) {
-
+	bool	isLeft = false;
+	int left_O = 0;
+	if (recuLevel == 0 && v.size() % 2 != 0) {
+		isLeft = true;
+		left_O = v.back();
+	}
+	std::vector<size_t> jbc = _generateJacob(_pend.size() / C); // based on chunk count
+	size_t totalSize_P = _pend.size() / C;
+	size_t inserted_count = 0; // the shifting in _main
+	size_t i = 1;
+	
+	while (i < jbc.size()) {
+		size_t O_jNum = jbc[i - 1];
+		size_t C_jNum = jbc[i];
+		size_t safeJNum = std::min(C_jNum, totalSize_P + 1);
+		
+		for (int k = safeJNum; k > O_jNum; --k) {
+			int pend_idx = k - 2;
+			std::vector<int>::iterator start = _pend.begin() + (pend_idx * C);
+			std::vector<int>::iterator end = _pend.begin() + ((pend_idx + 1) * C);
+			
+			int b_val = *(end - 1);
+			
+			int low_chunk = 0;
+			int high_chunk = k + inserted_count;
+			
+			while (low_chunk < high_chunk) {
+				int mid_chunk = low_chunk + (high_chunk - low_chunk) / 2;
+				int a_val = *(_main.begin() + ((mid_chunk + 1) * C) - 1);
+				
+				if (a_val < b_val) {
+					low_chunk = mid_chunk + 1;
+				} else {
+					high_chunk = mid_chunk;
+				}
+			}
+			_main.insert(_main.begin() + (low_chunk * C), start, end);
+			++inserted_count;
+		}
+		++i;
+	}
+	if (!_pend.empty()) {
+		std::cerr << "Error\n";
+		return;
+	}
+	if (isLeft) {
+		std::vector<int>::iterator it = std::lower_bound(_main.begin(), _main.end(), left_O);
+		if (it == _main.begin())
+			_main.insert(_main.begin(), _main.begin(), left_O);
+	}
+	for (size_t i = 0; i < _main.size(); ++i) {
+		this->v[i] = _main[i];
 	}
 }
 
