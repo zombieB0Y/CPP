@@ -11,14 +11,14 @@
 #include <sstream>
 #include <algorithm>
 #include <deque>
+#include <map>
 #include <iterator>
 #include <exception>
 
 class BitcoinExchange
 {
 private:
-	std::deque<std::string> dates;
-	std::deque<float> values;
+	std::map<std::string, float> db;
 	bool ready;
 
 public:

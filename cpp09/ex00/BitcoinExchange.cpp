@@ -10,6 +10,7 @@ BitcoinExchange::BitcoinExchange() {
 	std::string	line;
 	std::getline(data_f, line);
 	int	i = 0;
+	std::string current_date;
 	while (std::getline(data_f, line)) {
 		if (line == "")
 			break;
@@ -18,12 +19,13 @@ BitcoinExchange::BitcoinExchange() {
 		std::string			token;
 		while (std::getline(line_s, token, ',')) {
 			if (i % 2 == 0)
-				this->dates.push_back(token);
+				current_date = token;
 			else {
 				char *end;
-				this->values.push_back(std::strtof(token.c_str(), &end));
+				float val = std::strtof(token.c_str(), &end);
 				if (errno == ERANGE) throw std::exception();
 				if (*end != '\0') throw std::exception();
+				this->db[current_date] = val;
 			}
 			++i;
 		}
@@ -36,8 +38,7 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) {*this = other;}
 
 BitcoinExchange&	BitcoinExchange::operator=(const BitcoinExchange& other) {
 	if (this != &other) {
-		this->dates = other.dates;
-		this->values = other.values;
+		this->db = other.db;
 		this->ready = other.ready;
 	}
 	return *this;
@@ -46,9 +47,9 @@ BitcoinExchange&	BitcoinExchange::operator=(const BitcoinExchange& other) {
 BitcoinExchange::~BitcoinExchange() {}
 
 void	BitcoinExchange::print_obj() {
-	std::cout << this->dates.size() ;
-	for (size_t i = 0; i < this->dates.size(); i++) {
-		std::cout << this->dates[i] << " | " << std::fixed << std::setprecision(2) << this->values[i] << std::endl;
+	std::cout << this->db.size();
+	for (std::map<std::string, float>::iterator it = this->db.begin(); it != this->db.end(); ++it) {
+		std::cout << it->first << " | " << std::fixed << std::setprecision(2) << it->second << std::endl;
 	}
 }
 
@@ -57,11 +58,16 @@ void	BitcoinExchange::calcule_PNL(std::string input_file) {
 }
 
 float	BitcoinExchange::_getDateValue(std::string date) {
-	std::deque<std::string>::iterator i = std::lower_bound(this->dates.begin(), this->dates.end(), date);
-	if (i == this->dates.begin()) return 0;
-	if (i == this->dates.end()) return this->values.back();
-	if (date == *i) return this->values.at(std::distance(this->dates.begin(), i));
-	return this->values.at(std::distance(this->dates.begin(), --i));
+	std::map<std::string, float>::iterator i = this->db.lower_bound(date);
+	if (i == this->db.begin()) return this->db.begin()->second;
+	if (i == this->db.end()) {
+		std::map<std::string, float>::iterator last = this->db.end();
+		--last;
+		return last->second;
+	}
+	if (date == i->first) return i->second;
+	--i;
+	return i->second;
 }
 
 
