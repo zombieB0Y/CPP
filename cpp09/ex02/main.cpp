@@ -1,16 +1,23 @@
 #include "PmergeMe.hpp"
 
-int F(int n)
+int main(int argc, char **argv)
 {
-    int sum = 0;
-    for (int k = 1; k <= n; ++k) {
-        double value = (3.0 / 4.0) * k;
-        sum += static_cast<int>(ceil(log2(value)));
-    }
-    return sum;
-}
+	if (argc < 2)
+	{
+		std::cerr << "Usage: " << argv[0] << " <positive integer> [positive integer ...]" << std::endl;
+		return 1;
+	}
 
-int main() {
-	// for (int i = 0; i < 10; ++i) std::cout << _generateJacob(i) << std::endl;
-	PmergeMe	p("11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 0");
+	try
+	{
+		PmergeMe pmergeMe;
+		pmergeMe.parseArguments(argc, argv);
+		pmergeMe.execute();
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
+	}
+	return 0;
 }
