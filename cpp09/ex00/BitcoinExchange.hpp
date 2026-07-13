@@ -10,7 +10,6 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
-#include <deque>
 #include <map>
 #include <iterator>
 #include <exception>
@@ -19,7 +18,7 @@ class BitcoinExchange
 {
 private:
 	std::map<std::string, float> db;
-	bool ready;
+	// bool ready;
 
 public:
 	BitcoinExchange();
@@ -39,5 +38,4 @@ bool _handel_value(std::string value);
 bool check_years(std::string year);
 bool check_month(std::string month);
 bool check_days(std::string days);
-float ToInt(std::string value, std::string &error);
-void pop_intil(std::deque<std::string> &dq, int idx);
+float ToFloat(std::string value, std::string &error);
